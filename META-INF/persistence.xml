@@ -5,5 +5,16 @@
              version="3.0">
   <persistence-unit name="default">
 
+      <class>org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities.EntityCategoria</class>
+      <class>org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities.EntityHistorico</class>
+      <class>org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities.EntityLibro</class>
+      <class>org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities.EntityPrestamos</class>
+      <class>org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities.EntityUsuario</class>
+      <properties>
+          <property name="hibernate.connection.url" value="jdbc:mysql://192.168.252.37:3306/BIBLIOTECA"/>
+          <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+          <property name="hibernate.connection.username" value="admin"/>
+          <property name="hibernate.connection.password" value="pwd13"/>
+      </properties>
   </persistence-unit>
 </persistence>
