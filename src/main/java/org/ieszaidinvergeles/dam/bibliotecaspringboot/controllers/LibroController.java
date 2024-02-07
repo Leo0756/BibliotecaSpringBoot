@@ -44,6 +44,7 @@ public class LibroController {
     @PostMapping //endpoint para añadir un nuevo libro
     public EntityLibro guardarLibro(@Validated @RequestBody EntityLibro libro) {
         // ... (código para guardar un nuevo libro)
+        libro.setId(0);
         return librosRepository.save(libro); // da error si ya existe
     }
 
@@ -62,7 +63,7 @@ public class LibroController {
 
     // Tipo de solicitud HTTP --> PUT
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarLibro(@RequestBody EntityLibro nuevoLibro,
+    public ResponseEntity<?> actualizarLibro(@Validated @RequestBody EntityLibro nuevoLibro,
                                                     @PathVariable(value = "id") int id) {
         Optional<EntityLibro> libro = librosRepository.findById(id);
         if (libro.isPresent()) {

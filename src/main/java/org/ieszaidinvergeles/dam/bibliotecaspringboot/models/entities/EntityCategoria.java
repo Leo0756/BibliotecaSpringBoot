@@ -1,5 +1,6 @@
 package org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -16,6 +17,7 @@ public class EntityCategoria {
     @Column(name = "categoria", nullable = true, length = -1)
     private String categoria;
     @OneToMany(mappedBy = "categoria")
+    @JsonIgnore
     private Collection<EntityLibro> listaLibros;
 
     public int getId() {

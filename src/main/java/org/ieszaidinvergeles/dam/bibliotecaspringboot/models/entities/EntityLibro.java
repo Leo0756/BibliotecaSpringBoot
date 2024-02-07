@@ -1,6 +1,9 @@
 package org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
@@ -13,15 +16,23 @@ public class EntityLibro {
     private int id;
     @Basic
     @Column(name = "nombre", nullable = true, length = -1)
+    @NotEmpty(message="El nombre no puede estar vacío")
+    @Size(min = 1, max = 50, message = "El nombre tiene que tener entre 1 y 50 caracteres")
     private String nombre;
     @Basic
     @Column(name = "autor", nullable = true, length = -1)
+    @NotEmpty(message="El autor no puede estar vacío")
+    @Size(min = 1, max = 50, message = "El autor tiene que tener entre 1 y 50 caracteres")
     private String autor;
     @Basic
     @Column(name = "editorial", nullable = true, length = -1)
+    @NotEmpty(message="El editorial no puede estar vacío")
+    @Size(min = 1, max = 50, message = "El editorial tiene que tener entre 1 y 50 caracteres")
     private String editorial;
     @ManyToOne
+
     @JoinColumn(name = "categoria", referencedColumnName = "id")
+    @NotEmpty(message="La categoria no puede estar vacío")
     private EntityCategoria categoria;
 
     public int getId() {
