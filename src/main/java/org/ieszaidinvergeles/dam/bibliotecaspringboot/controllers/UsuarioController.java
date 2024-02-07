@@ -34,6 +34,7 @@ public class UsuarioController {
 
     @PostMapping("/insert/")
     public EntityUsuario insertarUsuario(@Valid @RequestBody EntityUsuario usuario) {
+        usuario.setId(0);
         return usuarioRepository.save(usuario);
     }
 

@@ -1,6 +1,8 @@
 package org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -13,10 +15,14 @@ public class EntityUsuario {
     @Column(name = "id", nullable = false)
     private int id;
     @Basic
-    @Column(name = "nombre", nullable = true, length = -1)
+    @NotEmpty(message = "El nombre no puede estar vacío.")
+    @Size(min = 2, max = 40, message = "El nombre tiene que tener entre 2 y 40 caracteres.")
+    @Column(name = "nombre", nullable = false, length = 40)
     private String nombre;
     @Basic
-    @Column(name = "apellidos", nullable = true, length = -1)
+    @NotEmpty(message = "El apellido no puede estar vacío.")
+    @Size(min = 10, max = 40, message = "El nombre tiene que tener entre 2 y 40 caracteres.")
+    @Column(name = "apellidos", nullable = false, length = 40)
     private String apellidos;
     @OneToMany(mappedBy = "usuario")
     private Collection<EntityPrestamos> listaPrestamos;
