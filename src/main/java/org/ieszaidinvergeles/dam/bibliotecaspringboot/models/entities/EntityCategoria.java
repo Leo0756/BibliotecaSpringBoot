@@ -1,6 +1,10 @@
 package org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -13,9 +17,12 @@ public class EntityCategoria {
     @Column(name = "id", nullable = false)
     private int id;
     @Basic
-    @Column(name = "categoria", nullable = true, length = -1)
+    @Column(name = "categoria", nullable = true, length = 30)
+    @NotBlank(message = "El nombre de la categoria no puede estar vacio")
+    @Size(max = 30, message = "El nombre de la categoria no puede tener mas de 30 caracteres")
     private String categoria;
     @OneToMany(mappedBy = "categoria")
+    @JsonIgnore
     private Collection<EntityLibro> listaLibros;
 
     public int getId() {
