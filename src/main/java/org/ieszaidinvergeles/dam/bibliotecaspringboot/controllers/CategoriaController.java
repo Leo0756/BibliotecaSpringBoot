@@ -1,16 +1,12 @@
 package org.ieszaidinvergeles.dam.bibliotecaspringboot.controllers;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.Length;
 import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities.EntityCategoria;
 import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities.EntityLibro;
 import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.repositories.IRepositoryCategoria;
 import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.repositories.IRepositoryLibro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
