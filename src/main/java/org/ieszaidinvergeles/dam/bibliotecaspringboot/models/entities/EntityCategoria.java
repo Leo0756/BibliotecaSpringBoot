@@ -18,7 +18,7 @@ public class EntityCategoria {
     @Basic
     @Column(name = "categoria", nullable = true, length = 30)
     @NotBlank(message = "El nombre de la categoria no puede estar vacio")
-    @Size(max = 30, message = "El nombre de la categoria no puede tener mas de 30 caracteres")
+    @Size(min = 1, max = 30, message = "El nombre de la categoria no puede tener mas de 30 caracteres")
     private String categoria;
     @OneToMany(mappedBy = "categoria")
     @JsonIgnore
