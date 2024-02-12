@@ -50,7 +50,9 @@ public class UsuarioController {
      * @param usuario Un objeto de tipo EntityUsuario que es introducido a través de un formato JSON.
      * @return Un objeto de tipo EntityUsuario.
      */
-    @PostMapping("/insert/")
+
+    @PostMapping()
+
     public EntityUsuario insertarUsuario(@Valid @RequestBody EntityUsuario usuario) {
         usuario.setId(0);
         return usuarioRepository.save(usuario);

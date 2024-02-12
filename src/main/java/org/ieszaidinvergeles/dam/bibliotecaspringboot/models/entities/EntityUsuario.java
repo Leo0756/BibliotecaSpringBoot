@@ -22,7 +22,7 @@ public class EntityUsuario {
     private String nombre;
     @Basic
     @NotEmpty(message = "El apellido no puede estar vacío.")
-    @Size(min = 10, max = 40, message = "El nombre tiene que tener entre 2 y 40 caracteres.")
+    @Size(min = 2, max = 40, message = "El nombre tiene que tener entre 2 y 40 caracteres.")
     @Column(name = "apellidos", nullable = false, length = 40)
     private String apellidos;
     @OneToMany(mappedBy = "usuario")
