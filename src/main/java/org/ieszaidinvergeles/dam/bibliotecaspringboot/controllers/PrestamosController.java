@@ -8,6 +8,7 @@ import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.repositories.IRepos
 import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.repositories.IRepositoryPrestamos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,5 +57,46 @@ public class PrestamosController {
     public EntityPrestamos guardarPrestamo(@Valid @RequestBody EntityPrestamos prestamo) {
         prestamo.setIdPrestamo(0);
         return prestamosRepository.save(prestamo); // Guarda el prestamo.
+    }
+
+    /**
+     * Metodo para borrar un prestamo, donde {id} es un parámetro de ruta.
+     * @param id parametro con el prestamo a eliminar
+     * @return devuelve el prestamo o error dependiendo de si existe o no.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> borrarLibro (@PathVariable(value = "id") int id) {
+        // ... (código para borrar un prestamo por su id)
+        Optional<EntityPrestamos> prestamo = prestamosRepository.findById(id);
+        if(prestamo.isPresent()) {
+            prestamosRepository.deleteById(id);
+            return ResponseEntity.ok().body("Borrado");
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /**
+     * Metodo para actualizar un prestamo existente, donde {id} es un parámetro de ruta.
+     * @param nuevoPrestamo objeto EntityPrestamos que contiene los nuevos datos del prestamo
+     * @param id parametro con el prestamo a actualizar
+     * @return devuelve el prestamo o error dependiendo de si existe o no.
+     */
+    // Tipo de solicitud HTTP --> PUT
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizarPrestamo(@Validated @RequestBody EntityPrestamos nuevoPrestamo,
+                                             @PathVariable(value = "id") int id) {
+        Optional<EntityPrestamos> prestamo = prestamosRepository.findById(id);
+        if (prestamo.isPresent()) {
+            prestamo.get().setFechaPrestamo(nuevoPrestamo.getFechaPrestamo());
+            prestamo.get().setLibro(nuevoPrestamo.getLibro());
+            prestamo.get().setUsuario(nuevoPrestamo.getUsuario());
+            prestamosRepository.save(prestamo.get());
+            return ResponseEntity.ok().body("Actualizado");
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
