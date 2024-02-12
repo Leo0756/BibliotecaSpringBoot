@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/biblioteca/categorias")
+@CrossOrigin(origins = "http://localhost:3000")
 
 public class CategoriaController {
 
