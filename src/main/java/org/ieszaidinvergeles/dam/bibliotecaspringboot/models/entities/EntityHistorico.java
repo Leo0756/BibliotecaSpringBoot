@@ -2,6 +2,7 @@ package org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.sql.Timestamp;
@@ -12,7 +13,7 @@ import java.util.Objects;
 public class EntityHistorico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "idHistorico", nullable = false)
+    @Column(name = "idhistorico", nullable = false)
     private int idHistorico;
     @Basic
     @NotEmpty(message = "El nombre del usuario no puede estar vacío.")
@@ -20,11 +21,12 @@ public class EntityHistorico {
     @Column(name = "user", nullable = false, length = 40)
     private String user;
     @Basic
+    @NotNull(message = "La fecha no puede esta vacía.")
     @Column(name = "fecha", nullable = false)
     private Timestamp fecha;
     @Basic
-    @NotEmpty(message = "La información adicional no puede estar vacío.")
-    @Column(name = "info", nullable = false, length = 40)
+    @NotEmpty(message = "La información adicional no puede estar vacía.")
+    @Column(name = "info", length = 40)
     private String info;
 
     public int getIdHistorico() {
