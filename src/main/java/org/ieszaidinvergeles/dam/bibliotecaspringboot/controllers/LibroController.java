@@ -14,6 +14,7 @@ import java.util.Optional;
  * Controlador REST que gestiona las operaciones relacionadas con los libros.
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/biblioteca/libros")
 public class LibroController {
     @Autowired //inyección de dependencia: por tanto, será inicializado

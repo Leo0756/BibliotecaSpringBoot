@@ -1,5 +1,6 @@
 package org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -25,6 +26,7 @@ public class EntityUsuario {
     @Column(name = "apellidos", nullable = false, length = 40)
     private String apellidos;
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private Collection<EntityPrestamos> listaPrestamos;
 
     public int getId() {
