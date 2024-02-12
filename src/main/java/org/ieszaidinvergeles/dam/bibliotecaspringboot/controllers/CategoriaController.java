@@ -80,6 +80,7 @@ public class CategoriaController {
      */
     @PostMapping
     public EntityCategoria guardarCategoria(@Valid @RequestBody EntityCategoria categoria) {
+        categoria.setId(0);
         return repositoryCategoria.save(categoria); // Guarda la categoria.
     }
 
