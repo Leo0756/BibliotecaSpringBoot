@@ -1,6 +1,8 @@
 package org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -13,13 +15,16 @@ public class EntityHistorico {
     @Column(name = "idHistorico", nullable = false)
     private int idHistorico;
     @Basic
-    @Column(name = "user", nullable = true, length = -1)
+    @NotEmpty(message = "El nombre del usuario no puede estar vacío.")
+    @Size(min = 2, max = 40, message = "El nombre tiene que tener entre 2 y 40 caracteres.")
+    @Column(name = "user", nullable = false, length = 40)
     private String user;
     @Basic
-    @Column(name = "fecha", nullable = true)
+    @Column(name = "fecha", nullable = false)
     private Timestamp fecha;
     @Basic
-    @Column(name = "info", nullable = true, length = -1)
+    @NotEmpty(message = "La información adicional no puede estar vacío.")
+    @Column(name = "info", nullable = false, length = 40)
     private String info;
 
     public int getIdHistorico() {
