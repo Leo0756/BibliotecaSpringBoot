@@ -10,16 +10,16 @@ import java.util.Objects;
 public class EntityPrestamos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "idPrestamo", nullable = false)
+    @Column(name = "idprestamo", nullable = false)
     private int idPrestamo;
     @Basic
-    @Column(name = "fechaPrestamo", nullable = true)
+    @Column(name = "fechaprestamo", nullable = true)
     private Timestamp fechaPrestamo;
     @ManyToOne
-    @JoinColumn(name = "idLibro", referencedColumnName = "id")
+    @JoinColumn(name = "idlibro", referencedColumnName = "id")
     private EntityLibro libro;
     @ManyToOne
-    @JoinColumn(name = "idUsuario", referencedColumnName = "id")
+    @JoinColumn(name = "idusuario", referencedColumnName = "id")
     private EntityUsuario usuario;
 
     public int getIdPrestamo() {

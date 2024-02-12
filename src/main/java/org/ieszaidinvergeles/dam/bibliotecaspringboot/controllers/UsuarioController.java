@@ -85,6 +85,7 @@ public class UsuarioController {
         if (usuario.isPresent()) {
             usuario.get().setNombre(nuevoUsuario.getNombre());
             usuario.get().setApellidos(nuevoUsuario.getApellidos());
+            usuario.get().setListaPrestamos(nuevoUsuario.getListaPrestamos());
             usuarioRepository.save(usuario.get());
             return ResponseEntity.ok().body("Actualizado");
         } else {
