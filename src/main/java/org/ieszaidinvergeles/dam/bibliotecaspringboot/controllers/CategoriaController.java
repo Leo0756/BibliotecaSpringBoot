@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Controlador REST que gestiona las operaciones relacionadas con las categorias.
+ */
 @RestController
 @RequestMapping("/biblioteca/categorias")
 
