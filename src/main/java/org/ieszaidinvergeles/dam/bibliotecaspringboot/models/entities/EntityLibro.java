@@ -86,4 +86,5 @@ public class EntityLibro {
     public void setCategoria(EntityCategoria categoria) {
         this.categoria = categoria;
     }
+
 }
