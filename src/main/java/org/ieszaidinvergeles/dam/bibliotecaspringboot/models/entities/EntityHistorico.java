@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -23,7 +24,7 @@ public class EntityHistorico {
     @Basic
     @NotNull(message = "La fecha no puede esta vacía.")
     @Column(name = "fecha", nullable = false)
-    private Timestamp fecha;
+    private LocalDateTime fecha;
     @Basic
     @NotEmpty(message = "La información adicional no puede estar vacía.")
     @Column(name = "info", length = 40)
@@ -45,11 +46,11 @@ public class EntityHistorico {
         this.user = user;
     }
 
-    public Timestamp getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Timestamp fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
