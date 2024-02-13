@@ -3,6 +3,7 @@ package org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +15,7 @@ public class EntityPrestamos {
     private int idPrestamo;
     @Basic
     @Column(name = "fechaprestamo", nullable = true)
-    private Timestamp fechaPrestamo;
+    private LocalDate fechaPrestamo;
     @ManyToOne
     @JoinColumn(name = "idlibro", referencedColumnName = "id")
     private EntityLibro libro;
@@ -30,11 +31,11 @@ public class EntityPrestamos {
         this.idPrestamo = idPrestamo;
     }
 
-    public Timestamp getFechaPrestamo() {
+    public LocalDate getFechaPrestamo() {
         return fechaPrestamo;
     }
 
-    public void setFechaPrestamo(Timestamp fechaPrestamo) {
+    public void setFechaPrestamo(LocalDate fechaPrestamo) {
         this.fechaPrestamo = fechaPrestamo;
     }
 

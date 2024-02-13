@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +59,7 @@ public class PrestamosController {
     @PostMapping
     public EntityPrestamos guardarPrestamo(@Valid @RequestBody EntityPrestamos prestamo) {
         prestamo.setIdPrestamo(0);
+        prestamo.setFechaPrestamo(LocalDate.now());
         return prestamosRepository.save(prestamo); // Guarda el prestamo.
     }
 

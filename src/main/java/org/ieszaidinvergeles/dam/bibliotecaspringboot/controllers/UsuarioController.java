@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Controlador REST que gestiona las operaciones relacionadas con los usuarios.
+ */
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/biblioteca/usuarios")
@@ -23,7 +25,7 @@ public class UsuarioController {
      *
      * @return Un objeto de tipo List<EntityUsuario>.
      */
-    @GetMapping("/select/all")
+    @GetMapping
     public List<EntityUsuario> buscarUsuarios() {
         return (List<EntityUsuario>) usuarioRepository.findAll();
     }
@@ -51,8 +53,7 @@ public class UsuarioController {
      * @return Un objeto de tipo EntityUsuario.
      */
 
-    @PostMapping()
-
+    @PostMapping
     public EntityUsuario insertarUsuario(@Valid @RequestBody EntityUsuario usuario) {
         usuario.setId(0);
         return usuarioRepository.save(usuario);
