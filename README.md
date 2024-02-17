@@ -4,8 +4,15 @@
 El proyecto SpringBoot-React CRUD de Biblioteca es una aplicación frontend desarrollada con Next.js y SpringBoot que permite gestionar una biblioteca de manera eficiente. Proporciona funcionalidades de CRUD (Crear, Leer, Actualizar, Eliminar) para libros, usuarios, categorías y préstamos. Los préstamos requieren la asociación de un libro y un usuario, asegurando un control integral de los préstamos de la biblioteca.
 
 ### FrontEnd
-
 ![Captura de pantalla 2024-02-17 161517](https://github.com/Leo0756/BibliotecaSpringBoot/assets/92804753/06042696-a7f9-43f0-98ff-a7f9c8f4bb1f)
+
+#### Dialog
+![image](https://github.com/Leo0756/BibliotecaSpringBoot/assets/92804753/29b4e62b-ffef-4a66-9fea-279248086ec5)
+
+#### Fichas Individuales
+![Captura de pantalla 2024-02-17 192811](https://github.com/Leo0756/BibliotecaSpringBoot/assets/92804753/4a46cd4d-977e-4e7d-aa3c-e0f77ad74137)
+#### Notificaciones al realizar operaciones
+![Captura de pantalla 2024-02-17 192901](https://github.com/Leo0756/BibliotecaSpringBoot/assets/92804753/eee10933-0428-4cb5-b923-759d8387a8e8)
 
 
 ### Tecnologías Utilizadas
