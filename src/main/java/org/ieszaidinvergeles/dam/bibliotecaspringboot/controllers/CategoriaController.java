@@ -1,9 +1,11 @@
 package org.ieszaidinvergeles.dam.bibliotecaspringboot.controllers;
 
 import jakarta.validation.Valid;
+import org.ieszaidinvergeles.dam.bibliotecaspringboot.controllers.helper.HistoricoHelper;
 import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities.EntityCategoria;
 import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities.EntityLibro;
 import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.repositories.IRepositoryCategoria;
+import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.repositories.IRepositoryHistorico;
 import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.repositories.IRepositoryLibro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
 /**
  * Controlador REST que gestiona las operaciones relacionadas con las categorias.
  */
@@ -27,23 +30,32 @@ public class CategoriaController {
     @Autowired // Implementación de la interfaz IRepositoryLibro.
     IRepositoryLibro repositoryLibro;
 
+    @Autowired
+    IRepositoryHistorico historicoRepository;
+
     /**
      * Metodo de seleccion de todas las categorias.
+     *
      * @return Devuelve todas las categorias existentes.
      */
     @GetMapping
     public List<EntityCategoria> buscarCategorias() {
+        HistoricoHelper.guardarSentencia("ip", historicoRepository, "SELECT * FROM categoria;");
         return (List<EntityCategoria>) repositoryCategoria.findAll(); // Devuelve todas las categorías.
     }
 
     /**
      * Metodo para buscar una categoria por su ID, donde {id} es un parámetro de ruta.
+     *
      * @param id parametro con el ID de la categoria
      * @return devuelve la categoria o error dependiendo de si existe o no.
      */
     @GetMapping("/{id}")
     public ResponseEntity<EntityCategoria> buscarCategoriaPorId(@PathVariable(value = "id") int id) {
         Optional<EntityCategoria> categoria = repositoryCategoria.findById(id); // Busca la categoría por su ID.
+
+        HistoricoHelper.guardarSentencia("IP", historicoRepository, "SELECT * FROM categoria WHERE id = " + id);
+
         if (categoria.isPresent()) { // Si la categoría existe...
             return ResponseEntity.ok().body(categoria.get()); // ...devuelve la categoría.
 
@@ -54,6 +66,7 @@ public class CategoriaController {
 
     /**
      * Metodo para buscar una categoria por su nombre, donde {nombre} es un parámetro de ruta.
+     *
      * @param nombre parametro con el nombre de la categoria.
      * @return devuelve la categoria o error dependiendo de si existe o no.
      */
@@ -64,6 +77,7 @@ public class CategoriaController {
         for (int i = 0; i < lista.size(); i++) { // Recorre todas las categorias
             if (lista.get(i).getCategoria().equals(nombre)) { // Si el nombre de la categoría coincide con el parámetro de ruta...
                 categoria = lista.get(i); // ...guarda esa categoría.
+                HistoricoHelper.guardarSentencia("IP", historicoRepository, "SELECT * FROM categoria WHERE categoria =" + categoria.getCategoria());
             }
         }
         if (categoria != null) { // Si se encontró una categoría...
@@ -76,25 +90,33 @@ public class CategoriaController {
 
     /**
      * Metodo para insertar una categoria.
+     *
      * @param categoria parametro que contiene el objeto EntityCategoria a insertar
      * @return inserta la categoria.
      */
     @PostMapping
     public EntityCategoria guardarCategoria(@Valid @RequestBody EntityCategoria categoria) {
         categoria.setId(0);
+
+        HistoricoHelper.guardarSentencia("IP", historicoRepository, "INSERT INTO categoria (categoria) " + "VALUES (" + categoria.getCategoria() + ")");
+
         return repositoryCategoria.save(categoria); // Guarda la categoria.
     }
 
     /**
      * Metodo para actualizar una categoria existente, donde {id} es un parámetro de ruta.
+     *
      * @param newCategoria objeto EntityCategoria que contiene los nuevos datos de la categoria
-     * @param id parametro con la categoria a actualizar
+     * @param id           parametro con la categoria a actualizar
      * @return devuelve la categoria o error dependiendo de si existe o no.
      */
     @PutMapping("{id}")
     public ResponseEntity<?> actualizarCategoria(@RequestBody @Valid EntityCategoria newCategoria, @PathVariable(value = "id") int id) {
         Optional<EntityCategoria> categoria = repositoryCategoria.findById(id); // Busca una categoría por su ID.
         if (categoria.isPresent()) { // Si la categoría existe...
+
+            HistoricoHelper.guardarSentencia("IP", historicoRepository, "UPDATE categoria SET categoria =" + categoria.get().getCategoria() + "WHERE id=" + id);
+
             categoria.get().setCategoria(newCategoria.getCategoria()); // ...actualiza su nombre.
             categoria.get().setListaLibros(newCategoria.getListaLibros()); // ...actualiza su lista de libros.
             repositoryCategoria.save(categoria.get()); // ...guarda la categoría actualizada.
@@ -107,6 +129,7 @@ public class CategoriaController {
 
     /**
      * Metodo para borrar una categoria, donde {id} es un parámetro de ruta.
+     *
      * @param id parametro con la categoria a eliminar
      * @return devuelve la categoria o error dependiendo de si existe o no.
      */
@@ -115,9 +138,12 @@ public class CategoriaController {
         Optional<EntityCategoria> categoria = repositoryCategoria.findById(id); // Busca una categoría por su ID.
         if (categoria.isPresent()) { // Si la categoría existe...
             Collection<EntityLibro> libros = categoria.get().getListaLibros(); // ...obtiene sus libros.
+
             for (EntityLibro libro : libros) { // Bucle para recorrer todos los libros.
                 repositoryLibro.deleteById(libro.getId()); // Borra cada libro del bucle.
             }
+
+            HistoricoHelper.guardarSentencia("IP", historicoRepository, "DELETE FROM categoria WHERE id=" + id);
             repositoryCategoria.deleteById(id); // Borra la categoría.
             return ResponseEntity.ok().body("Borrado"); // Devuelve un mensaje de éxito.
 
