@@ -110,3 +110,18 @@ public class CategoriaController {
     @Autowired // Implementación de la interfaz IRepositoryCategoria.
     IRepositoryCategoria repositoryCategoria;
 ```
+
+### Error con el formato de la fecha
+
+Durante la revisión del CRUD de préstamo, tuvimos complicaciones a la hora de introducir datos en la tabla del mismo, y el problema surgió cuando en el código generado con JPA el formato de la fecha era **LocalDateTime**, esto causaba que fuera incomoda la inserción del préstamo, además de que proporcionaba información innecesaria como son las horas, minutos y segundos.
+
+Lo único que tuvimos que hacer fue cambiar el formato de **LocalDateTime** a **LocalDate**, de esta manera se pueden insertar los datos de una manera mucho más cómoda y no proporciona información innecesaria.
+
+Código con el campo "fecha" con el objeto cambiado:
+
+```java
+ @Basic
+    @Column(name = "fechaprestamo", nullable = true)
+    private LocalDate fechaPrestamo;
+```
+
