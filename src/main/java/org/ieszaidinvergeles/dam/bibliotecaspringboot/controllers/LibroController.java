@@ -128,8 +128,7 @@ public class LibroController {
 
         if (libro.isPresent()) {
 
-            HistoricoHelper.guardarSentencia("IP", historicoRepository, "UPDATE libro SET " + "nombre =" + nuevoLibro.getNombre() + "," + "autor =" + nuevoLibro.getAutor() + "," + "editorial =" + nuevoLibro.getEditorial() + "," + "categoria =" + nuevoLibro.getCategoria());
-
+            HistoricoHelper.guardarSentencia("IP", historicoRepository, "UPDATE libro SET " + "nombre =" + nuevoLibro.getNombre() + "," + "autor =" + nuevoLibro.getAutor() + "," + "editorial =" + nuevoLibro.getEditorial() + "," + "categoria =" + nuevoLibro.getCategoria() + "WHERE id=" + id);
             libro.get().setNombre(nuevoLibro.getNombre());
             libro.get().setAutor(nuevoLibro.getAutor());
             libro.get().setEditorial(nuevoLibro.getEditorial());
