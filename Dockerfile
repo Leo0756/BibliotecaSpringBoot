@@ -2,7 +2,7 @@ FROM openjdk:21
 # Crear un volumen /tmp
 VOLUME /tmp
 # Agregamos el archivo JAR de tu aplicación al contenedor
-ADD target/BibliotecaSpringBoot.jar app.jar
+ADD out/BibliotecaSpringBoot.jar app.jar
 # Ejecutamos un comando para establecer la marca de tiempo del archivo JAR
 RUN sh -c 'touch /app.jar'
 # Exponemos el puerto 8080 en el contenedor

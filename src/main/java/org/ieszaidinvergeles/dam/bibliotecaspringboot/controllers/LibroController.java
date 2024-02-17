@@ -141,8 +141,8 @@ public class LibroController {
         Optional<EntityLibro> libro = librosRepository.findById(id);
 
         if (libro.isPresent()) {
-            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            String ipCliente = request.getRemoteAddr();
+
+            String ipCliente = getClientIpAddress();
             HistoricoHelper.guardarSentencia(ipCliente, historicoRepository, "UPDATE libro SET " + "nombre =" + nuevoLibro.getNombre() + "," + "autor =" + nuevoLibro.getAutor() + "," + "editorial =" + nuevoLibro.getEditorial() + "," + "categoria =" + nuevoLibro.getCategoria() + "WHERE id=" + id);
             libro.get().setNombre(nuevoLibro.getNombre());
             libro.get().setAutor(nuevoLibro.getAutor());
@@ -153,5 +153,9 @@ public class LibroController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    private String getClientIpAddress() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        return request.getRemoteAddr();
     }
 }

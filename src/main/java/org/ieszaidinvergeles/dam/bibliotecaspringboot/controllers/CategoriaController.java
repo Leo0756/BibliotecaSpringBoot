@@ -1,5 +1,6 @@
 package org.ieszaidinvergeles.dam.bibliotecaspringboot.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.ieszaidinvergeles.dam.bibliotecaspringboot.controllers.helper.HistoricoHelper;
 import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.entities.EntityCategoria;
@@ -10,6 +11,8 @@ import org.ieszaidinvergeles.dam.bibliotecaspringboot.models.repositories.IRepos
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Collection;
 import java.util.List;
@@ -40,7 +43,9 @@ public class CategoriaController {
      */
     @GetMapping
     public List<EntityCategoria> buscarCategorias() {
-        HistoricoHelper.guardarSentencia("ip", historicoRepository, "SELECT * FROM categoria;");
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String ipCliente = request.getRemoteAddr();
+        HistoricoHelper.guardarSentencia(ipCliente, historicoRepository, "SELECT * FROM categoria;");
         return (List<EntityCategoria>) repositoryCategoria.findAll(); // Devuelve todas las categorías.
     }
 
@@ -53,8 +58,9 @@ public class CategoriaController {
     @GetMapping("/{id}")
     public ResponseEntity<EntityCategoria> buscarCategoriaPorId(@PathVariable(value = "id") int id) {
         Optional<EntityCategoria> categoria = repositoryCategoria.findById(id); // Busca la categoría por su ID.
-
-        HistoricoHelper.guardarSentencia("IP", historicoRepository, "SELECT * FROM categoria WHERE id = " + id);
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String ipCliente = request.getRemoteAddr();
+        HistoricoHelper.guardarSentencia(ipCliente, historicoRepository, "SELECT * FROM categoria WHERE id = " + id);
 
         if (categoria.isPresent()) { // Si la categoría existe...
             return ResponseEntity.ok().body(categoria.get()); // ...devuelve la categoría.
@@ -73,11 +79,13 @@ public class CategoriaController {
     @GetMapping("/nombre/{nombre}")
     public ResponseEntity<EntityCategoria> buscarCategoriaPorNombre(@PathVariable(value = "nombre") String nombre) {
         List<EntityCategoria> lista = buscarCategorias(); // Obtiene todas las categorías.
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String ipCliente = request.getRemoteAddr();
         EntityCategoria categoria = null;
         for (int i = 0; i < lista.size(); i++) { // Recorre todas las categorias
             if (lista.get(i).getCategoria().equals(nombre)) { // Si el nombre de la categoría coincide con el parámetro de ruta...
                 categoria = lista.get(i); // ...guarda esa categoría.
-                HistoricoHelper.guardarSentencia("IP", historicoRepository, "SELECT * FROM categoria WHERE categoria =" + categoria.getCategoria());
+                HistoricoHelper.guardarSentencia(ipCliente, historicoRepository, "SELECT * FROM categoria WHERE categoria =" + categoria.getCategoria());
             }
         }
         if (categoria != null) { // Si se encontró una categoría...
@@ -95,10 +103,12 @@ public class CategoriaController {
      * @return inserta la categoria.
      */
     @PostMapping
-    public EntityCategoria guardarCategoria(@Valid @RequestBody EntityCategoria categoria) {
+    public EntityCategoria guardarCategoria(@Valid @RequestBody EntityCategoria categoria,HttpServletRequest request) {
         categoria.setId(0);
 
-        HistoricoHelper.guardarSentencia("IP", historicoRepository, "INSERT INTO categoria (categoria) " + "VALUES (" + categoria.getCategoria() + ")");
+        String ipCliente = request.getRemoteAddr();
+
+        HistoricoHelper.guardarSentencia(ipCliente, historicoRepository, "INSERT INTO categoria (categoria) " + "VALUES (" + categoria.getCategoria() + ")");
 
         return repositoryCategoria.save(categoria); // Guarda la categoria.
     }
@@ -113,9 +123,11 @@ public class CategoriaController {
     @PutMapping("{id}")
     public ResponseEntity<?> actualizarCategoria(@RequestBody @Valid EntityCategoria newCategoria, @PathVariable(value = "id") int id) {
         Optional<EntityCategoria> categoria = repositoryCategoria.findById(id); // Busca una categoría por su ID.
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String ipCliente = request.getRemoteAddr();
         if (categoria.isPresent()) { // Si la categoría existe...
 
-            HistoricoHelper.guardarSentencia("IP", historicoRepository, "UPDATE categoria SET categoria =" + categoria.get().getCategoria() + "WHERE id=" + id);
+            HistoricoHelper.guardarSentencia(ipCliente, historicoRepository, "UPDATE categoria SET categoria =" + categoria.get().getCategoria() + "WHERE id=" + id);
 
             categoria.get().setCategoria(newCategoria.getCategoria()); // ...actualiza su nombre.
             categoria.get().setListaLibros(newCategoria.getListaLibros()); // ...actualiza su lista de libros.
@@ -136,6 +148,8 @@ public class CategoriaController {
     @DeleteMapping("{id}")
     public ResponseEntity<?> borrarCategoria(@PathVariable(value = "id") int id) {
         Optional<EntityCategoria> categoria = repositoryCategoria.findById(id); // Busca una categoría por su ID.
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String ipCliente = request.getRemoteAddr();
         if (categoria.isPresent()) { // Si la categoría existe...
             Collection<EntityLibro> libros = categoria.get().getListaLibros(); // ...obtiene sus libros.
 
@@ -143,7 +157,7 @@ public class CategoriaController {
                 repositoryLibro.deleteById(libro.getId()); // Borra cada libro del bucle.
             }
 
-            HistoricoHelper.guardarSentencia("IP", historicoRepository, "DELETE FROM categoria WHERE id=" + id);
+            HistoricoHelper.guardarSentencia(ipCliente, historicoRepository, "DELETE FROM categoria WHERE id=" + id);
             repositoryCategoria.deleteById(id); // Borra la categoría.
             return ResponseEntity.ok().body("Borrado"); // Devuelve un mensaje de éxito.
 
