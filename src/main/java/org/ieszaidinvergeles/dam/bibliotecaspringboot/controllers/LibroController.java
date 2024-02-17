@@ -78,7 +78,7 @@ public class LibroController {
         EntityLibro libro = null;
         for (int i = 0; i < lista.size(); i++) { // Recorre todos los libros
             if (lista.get(i).getNombre().equals(nombre)) { // Si el nombre del libro coincide con el parámetro de ruta...
-                HistoricoHelper.guardarSentencia("ip", historicoRepository, "SELECT * FROM libro WHERE nombre = " + nombre);
+                HistoricoHelper.guardarSentencia(ipCliente, historicoRepository, "SELECT * FROM libro WHERE nombre = " + nombre);
                 libro = lista.get(i); // ...guarda esa categoría.
             }
         }
