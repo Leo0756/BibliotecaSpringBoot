@@ -74,7 +74,6 @@ public class LibroController {
     public ResponseEntity<EntityLibro> buscarLibroPorNombre(@PathVariable(value = "nombre") String nombre) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String ipCliente = request.getRemoteAddr();
-        HistoricoHelper.guardarSentencia(ipCliente, historicoRepository, "SELECT * FROM libro;");
         List<EntityLibro> lista = buscarLibros(); // Obtiene todos los libros.
         EntityLibro libro = null;
         for (int i = 0; i < lista.size(); i++) { // Recorre todos los libros
