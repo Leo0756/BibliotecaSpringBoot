@@ -87,3 +87,26 @@ export const guardarNuevoLibro = (libroInput, categorias, categoriaSeleccionadaL
             toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error al crear el libro', life: 3000 });
         });
 };
+```
+### Errores durante el Desarrollo y Soluciones
+
+Aqui todos los errores y soluciones encontrados durante el desarrollo de la aplicacion:
+
+#### Error de CORS en las Peticiones Axios
+
+El error de Cross-Origin Resource Sharing (CORS) es común al realizar solicitudes HTTP desde un dominio diferente al servidor.
+
+Para solucionar el error de CORS,configuramos SpringBoot para permitir solicitudes desde el dominio del frontend. Esto se puede hacer configurando los encabezados CORS en Spring Boot.
+
+Añadiendo esta linea se soluciona el error:
+
+```java
+@RestController
+@RequestMapping("/biblioteca/categorias")
+@CrossOrigin(origins = "http://localhost:3000")
+
+public class CategoriaController {
+
+    @Autowired // Implementación de la interfaz IRepositoryCategoria.
+    IRepositoryCategoria repositoryCategoria;
+```
