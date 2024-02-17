@@ -39,7 +39,7 @@ export const eliminarLibro = (id, libros, setLibros, setVisibleFichaLibro, toast
             toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error al eliminar el libro', life: 3000 });
         });
 };
-
+```
 #### Actualizar un Libro
 ```javascript
 export const actualizarLibro = (id, nuevoLibro, libros, setLibros, toast) => {
@@ -63,7 +63,7 @@ export const actualizarLibro = (id, nuevoLibro, libros, setLibros, toast) => {
             toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error al actualizar el libro', life: 3000 });
         });
 };
-
+```
 #### Guardar Nuevo Libro
 ```javascript
 export const guardarNuevoLibro = (libroInput, categorias, categoriaSeleccionadaLibro, libros, setLibros, setVisibleCrearLibro, toast, setLibroInput, setCategoriaSeleccionadaLibro) => {
