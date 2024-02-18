@@ -127,7 +127,8 @@ export const guardarNuevoLibro = (libroInput, categorias, categoriaSeleccionadaL
 };
 ```
 ### Mejoras
-#### Buscador de objetos
+#### Buscador y filtrados de libros: En el dialog de libros se ha implementado un filtrado y buscado de libros en vivo. Pemite buscar por nombre, editorial y autor. Además se ordena alfabeticamente.
+Esta mejora también esta incluida a la hora de seleccionar libros y usuarios para crear prestamos.
 
 #### Ordenación de la tabla de objetos
 
