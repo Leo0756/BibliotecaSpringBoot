@@ -130,7 +130,7 @@ export const guardarNuevoLibro = (libroInput, categorias, categoriaSeleccionadaL
 #### Buscador y filtrados de libros: En el dialog de libros se ha implementado un filtrado y buscado de libros en vivo. Pemite buscar por nombre, editorial y autor. Además se ordena alfabeticamente.
 Esta mejora también esta incluida a la hora de seleccionar libros y usuarios para crear prestamos.
 
-#### Ordenación de la tabla de objetos
+#### Boton para cerrar todos los dialog : Se ha implementado un botón que permite cerrar todos los dialog de forma cómoda para no saturar la vista con demasiada información.
 
 ### Errores durante el Desarrollo y Soluciones
 
