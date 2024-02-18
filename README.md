@@ -3,6 +3,37 @@
 ## Descripción
 El proyecto SpringBoot-React CRUD de Biblioteca es una aplicación frontend desarrollada con Next.js y SpringBoot que permite gestionar una biblioteca de manera eficiente. Proporciona funcionalidades de CRUD (Crear, Leer, Actualizar, Eliminar) para libros, usuarios, categorías y préstamos. Los préstamos requieren la asociación de un libro y un usuario, asegurando un control integral de los préstamos de la biblioteca.
 
+## Implementación de los endpoints
+Para ver como hemos utilizado los distintos endpoints para el enrutamiento de las diferentes operaciones de una entidad tomaremos como ejemplo las amotaciones de la clase LibroController: 
+### @RestController
+Con esta anotación le estamos diciendo a Spring que esta clase actuará como un controlador, y que los métodos de esta clase devolverán directamente objetos que se serializarán en el cuerpo de la respuesta HTTP.
+### @RequestMapping("/biblioteca/libros")
+Se utiliza para mapear la clase LibroController a una ruta URI la cual finaliza con el valor que le demos, en este caso "/biblioteca/libros".
+### @CrossOrigin(origins = "http://localhost:3000")
+Esta anotación se explicará más adelante, en el apartado de errores ya que es una solución a uno de estos.
+### @GetMapping
+Anotación específica de Spring que hemos utilizado para asignar solicitudes HTTP GET a los métodos de búsqueda (SELECT) dentro deL controlador. En el caso de libro tenemos:
+#### - @GetMapping:
+  para el método *buscarLibros()*, el cual devuelve todos los libros de la base de datos utilizando *findAll()*.
+#### - @GetMapping("/{id}"):
+  para el método *buscarLibroPorId(id)*, el cual devuelve el libro de la base de datos utilizando *findById(id)*.
+#### - @GetMapping("/nombre/{nombre}"):
+  para el método *buscarLibroPorNombre(nombre)*, el cual devuelve el libro de la base de datos utilizando un bucle que recorra todos los libros y los comparé.
+### @PostMapping
+Anotación específica de Spring que hemos utilizado para asignar solicitudes HTTP POST al método de guardar (INSERT) dentro deL controlador, en este caso guardarLibro(libro).
+### @DeleteMapping("/{id}")
+Anotación específica de Spring que hemos utilizado para asignar solicitudes HTTP DELETE al método de borrar dentro deL controlador, en este caso borrarLibro(libro).
+### @PutMapping("/{id}")
+Anotación específica de Spring que hemos utilizado para asignar solicitudes HTTP PUT al método de actualizar (UPDATE) dentro deL controlador, en este caso actualizarLibro(nuevoLibro,id).
+### Otras anotaciones de interés
+#### - @Autowired:
+  Se utiliza para realizar la inyección de dependencias de forma automática en los campos o constructores. Esto significa que no necesitaremos crear manualmente instancias de los objetos, sino que Spring se encarga de ello.
+#### - @PathVariable:
+  Se utiliza para vincular variables de la URI de una solicitud HTTP a los parámetros de un método del controlador. Esto permite que los valores de las partes variables de la URL se pasen como argumentos al método.
+#### - @Validated:
+  Se utiliza para activar la validación de los parámetros de un método del controlador. Esto significa que los objetos pasados como argumentos al método serán validados según las restricciones de validación definidas en las anotaciones de restricción de Bean Validation (por ejemplo, @NotNull, @Size, @Email, etc.).
+#### - @RequestBody:
+ Se utiliza para indicar que un parámetro del controlador debe ser vinculado al cuerpo de la solicitud HTTP entrante convirtiendola en el tipo de objeto correspondiente.
 ### FrontEnd
 ![Captura de pantalla 2024-02-17 161517](https://github.com/Leo0756/BibliotecaSpringBoot/assets/92804753/06042696-a7f9-43f0-98ff-a7f9c8f4bb1f)
 
@@ -95,6 +126,11 @@ export const guardarNuevoLibro = (libroInput, categorias, categoriaSeleccionadaL
         });
 };
 ```
+### Mejoras
+#### Buscador de objetos
+
+#### Ordenación de la tabla de objetos
+
 ### Errores durante el Desarrollo y Soluciones
 
 Aqui todos los errores y soluciones encontrados durante el desarrollo de la aplicacion:
